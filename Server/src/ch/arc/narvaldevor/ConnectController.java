@@ -1,6 +1,5 @@
 package ch.arc.narvaldevor;
 import java.io.IOException;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
