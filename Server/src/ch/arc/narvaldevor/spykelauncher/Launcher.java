@@ -1,4 +1,4 @@
-package ch.arc.narvaldevor;
+package ch.arc.narvaldevor.spykelauncher;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- * Created by NarvalNudiste on 18/05/2017.
- */
-public class Launcher extends Application{
-    public static void main(String args[]){
-    	
+public class Launcher extends Application
+{
+
+	public static void main(String args[])
+	{
         //Server server = new Server();
         launch(args);
     }
@@ -20,8 +19,8 @@ public class Launcher extends Application{
     @Override
 	public void start(Stage primaryStage) throws Exception 
 	{
-		Parent root = FXMLLoader.load(getClass().getResource("view/connect.fxml"));
-		primaryStage.initStyle(StageStyle.UNDECORATED);
+		Parent root = FXMLLoader.load(getClass().getResource("../view/connect.fxml"));
+		//primaryStage.initStyle(StageStyle.UNDECORATED);
 		
 		Scene scene = new Scene(root);
 		

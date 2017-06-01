@@ -11,6 +11,7 @@ import java.util.Observer;
  */
 public class Server implements Observer{
     private SocketList sockets;
+    
     public Server(){
         sockets = new SocketList();
         sockets.addObserver(this);
