@@ -12,11 +12,12 @@ import java.util.List;
  * Created by NarvalNudiste on 18/05/2017.
  */
 public class ClientHandler implements Runnable {
+
     private SocketList sockets;
     private int porc;
     private ServerSocket serverSocket = null;
-
-    ClientHandler(SocketList _sockets, int _porc){
+    
+    public ClientHandler(SocketList _sockets, int _porc){
         this.sockets = _sockets;
         this.porc = _porc;
     }
