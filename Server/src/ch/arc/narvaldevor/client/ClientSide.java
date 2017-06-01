@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 public class ClientSide
 {
-	boolean isConnect = false;
+	boolean isConnect = true;
 	
 	public boolean isConnect()
 	{
@@ -23,17 +23,20 @@ public class ClientSide
 			  BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			  BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))) 
 		{
-			//if(echoSocket.isConnected())
-			//{
-				//isConnect = true;
-			//}
-			String userInput;
-			while ((userInput = stdIn.readLine()) != null) 
+
+			// LA ON EST CONNECTES
+			
+			/*
+			if(echoSocket.isConnected())
+			{
+				isConnect = true;
+			}*/
+		/*	while ((userInput = stdIn.readLine()) != null)
 			{
 				out.println(userInput);
 				System.out.println(username +" dit: "+ in.readLine());
-      
-			}
+
+			} */
 		}
 		catch (UnknownHostException ex) 
 		{

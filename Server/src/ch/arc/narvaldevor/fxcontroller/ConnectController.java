@@ -38,13 +38,13 @@ public class ConnectController
 			if(client.isConnect())
 			{
 				System.out.println("OK");
-				//Parent spyke = FXMLLoader.load(getClass().getResource("../view/spyke.fxml"));
+				Parent spyke = FXMLLoader.load(getClass().getResource("../view/spyke.fxml"));
 				
-				//Scene scene = new Scene(spyke);
-				//Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-				//stage.hide();
-				//stage.setScene(scene);
-				//stage.show();
+				Scene scene = new Scene(spyke);
+				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				stage.hide();
+				stage.setScene(scene);
+				stage.show();
 			}
 			else
 			{
