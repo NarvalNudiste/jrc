@@ -38,7 +38,7 @@
       </Pane>
       <Pane layoutX="287.0" layoutY="-2.0" prefHeight="55.0" prefWidth="516.0" style="-fx-background-color: rgb(2,13,18);">
          <children>
-            <JFXToggleButton disable="true" layoutY="1.0" prefHeight="34.0" prefWidth="170.0" text="Hors ligne" textFill="#2aabf5">
+            <JFXToggleButton fx:id="online" disable="true" layoutY="1.0" prefHeight="34.0" prefWidth="170.0" text="Hors ligne" textFill="#2aabf5">
                <font>
                   <Font size="18.0" />
                </font>
@@ -48,13 +48,13 @@
                   <Image url="@call.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="459.0" layoutY="10.0" prefHeight="42.0" prefWidth="34.0" textFill="TRANSPARENT" />
+            <JFXButton fx:id="call" layoutX="459.0" layoutY="10.0" prefHeight="42.0" prefWidth="34.0" textFill="TRANSPARENT" />
          </children>
       </Pane>
       <Pane layoutX="287.0" layoutY="529.0" prefHeight="173.0" prefWidth="516.0" style="-fx-background-color: rgb(2,13,18);">
          <children>
-            <JFXTextField layoutX="12.0" layoutY="14.0" prefHeight="55.0" prefWidth="493.0" promptText="Saisir votre message" style="-fx-background-color: #ffffff;" />
-            <JFXButton layoutX="14.0" layoutY="87.0" prefHeight="39.0" prefWidth="86.0" ripplerFill="BLACK" style="-fx-background-color: rgb(42,171,245);" text="Envoyer" textFill="WHITE">
+            <JFXTextField fx:id="writemessage" layoutX="12.0" layoutY="14.0" prefHeight="55.0" prefWidth="493.0" promptText="Saisir votre message" style="-fx-background-color: #ffffff;" />
+            <JFXButton fx:id="sendmessageBtn" layoutX="14.0" layoutY="87.0" onAction="#sendMessage" prefHeight="39.0" prefWidth="86.0" ripplerFill="BLACK" style="-fx-background-color: rgb(42,171,245);" text="Envoyer" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -69,10 +69,10 @@
                   <Image url="@joint.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="113.0" layoutY="86.0" prefHeight="42.0" prefWidth="47.0" textFill="TRANSPARENT" />
+            <JFXButton fx:id="jointfile" layoutX="113.0" layoutY="86.0" prefHeight="42.0" prefWidth="47.0" textFill="TRANSPARENT" />
          </children>
       </Pane>
-      <TextArea editable="false" layoutX="295.0" layoutY="77.0" prefHeight="418.0" prefWidth="493.0" style="-fx-border-insets: 0;" />
-      <Label layoutX="295.0" layoutY="501.0" prefHeight="17.0" prefWidth="493.0" text="Charles est entrain d'écrire..." />
+      <TextArea fx:id="displaymessage" layoutX="295.0" layoutY="73.0" prefHeight="418.0" prefWidth="493.0" style="-fx-border-insets: 0;" />
+      <Label fx:id="status" layoutX="295.0" layoutY="501.0" prefHeight="17.0" prefWidth="493.0" text="Charles est entrain d'écrire..." />
    </children>
 </AnchorPane>

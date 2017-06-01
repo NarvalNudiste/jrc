@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 public class ClientSide
 {
-	boolean isConnect = true;
+	boolean isConnect = false;
 	
 	public boolean isConnect()
 	{
@@ -26,11 +26,11 @@ public class ClientSide
 
 			// LA ON EST CONNECTES
 			
-			/*
+			
 			if(echoSocket.isConnected())
 			{
 				isConnect = true;
-			}*/
+			}
 		/*	while ((userInput = stdIn.readLine()) != null)
 			{
 				out.println(userInput);
