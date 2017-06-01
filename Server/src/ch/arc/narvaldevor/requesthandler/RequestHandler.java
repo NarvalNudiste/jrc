@@ -16,7 +16,7 @@ public class RequestHandler implements Runnable {
 	private Socket client;
 	private ServerSide server = null;
 	private int numberOfClient;
-	
+	private int userId;
 	public RequestHandler(Socket client, ServerSide server)
 	{
 		this.server = server;
@@ -31,11 +31,18 @@ public class RequestHandler implements Runnable {
 		{
 			//On ajoute le client dans la liste coté serveur et on récupère le nombre de clients
 			numberOfClient = server.addClient(writer);
+			this.setUserId(server.getLastId());
+
 			//System.out.println("Nom du thread: "+Thread.currentThread().getName());
 			String message;
 			
 			while((message = bufferin.readLine()) != null)
 			{
+				if (message.contains("/setNickname")){
+					String nick = message.replace("/setNickname", "");
+					server.setUserNickName(this.userId, nick);
+				}
+
 				System.out.println("Le client "+numberOfClient+" dit: "+message);
 				//On envoie le message à tous les clients connecté via la méthode sendAll...coté serveur
 				server.sendMessageToAllClients(message);
@@ -53,4 +60,7 @@ public class RequestHandler implements Runnable {
 
 	}
 
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 }

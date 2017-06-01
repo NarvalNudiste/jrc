@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ch.arc.narldevor.services.ServerServices;
+import ch.arc.narvaldevor.User;
 import ch.arc.narvaldevor.requesthandler.RequestHandler;
 
 public class ServerSide implements ServerServices
@@ -19,6 +20,7 @@ public class ServerSide implements ServerServices
 	//private ServerSocket serverSocket;
 	private int numberOfClients;
 	private List<PrintWriter> clientList = new ArrayList<PrintWriter>();
+	private List<User> userList = new ArrayList<User>();
 	private int portNumber = 1234;
 	private ExecutorService threadPool = null;
 	
@@ -61,6 +63,9 @@ public class ServerSide implements ServerServices
 	        }
 		  }
 	}
+	public int getLastId(){
+		return this.userList.size()-1;
+	}
 
 	@Override
 	public int addClient(PrintWriter printWriter) 
@@ -71,13 +76,22 @@ public class ServerSide implements ServerServices
 		
 		return this.numberOfClients;
 	}
-	
+
+	public void addUser(PrintWriter _p){
+		this.userList.add(new User(_p));
+		this.userList.get(userList.size()-1).setId(this.numberOfClients);
+		this.numberOfClients++;
+	}
 	@Override
 	public boolean removeClient(PrintWriter printWriter){
 		this.numberOfClients--;
 		return this.clientList.remove(printWriter);
 	}
-	
+
+	public void setUserNickName(int id, String nick){
+		userList.get(id).setNickname(nick);
+		System.out.println("user n#" + id + " nickname : " + userList.get(id).getNickname());
+	}
 	@Override
 	public void sendMessageToAllClients(String message) {
 		
