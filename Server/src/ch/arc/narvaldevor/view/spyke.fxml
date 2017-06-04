@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import com.jfoenix.validation.*?>
 <?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
@@ -12,49 +13,38 @@
    <children>
       <Pane prefHeight="702.0" prefWidth="287.0" style="-fx-background-color: rgb(42,171,245);">
          <children>
-            <Label layoutX="7.0" layoutY="28.0" prefHeight="55.0" prefWidth="110.0" text="Spyke" textFill="#f5f2f2">
+            <Label layoutX="4.0" layoutY="149.0" prefHeight="28.0" prefWidth="190.0" text="Contacts en ligne" textFill="#fcfafa">
                <font>
-                  <Font name="Arial Bold" size="36.0" />
-               </font>
-            </Label>
-            <Label alignment="TOP_LEFT" layoutX="18.0" layoutY="151.0" prefHeight="28.0" prefWidth="110.0" text="Contacts" textFill="#fcfafa">
-               <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Label>
             <JFXTabPane layoutX="94.0" layoutY="190.0" />
-            <ImageView fitHeight="109.0" fitWidth="160.0" layoutX="164.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="109.0" fitWidth="160.0" layoutX="89.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@profile.png" />
                </image>
             </ImageView>
-            <Label alignment="TOP_LEFT" layoutX="159.0" layoutY="151.0" prefHeight="28.0" prefWidth="110.0" text="en ligne" textFill="#fcfafa">
+            <Label fx:id="pseudo" alignment="CENTER" layoutX="4.0" layoutY="115.0" prefHeight="28.0" prefWidth="280.0" textFill="#f7ff05">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <JFXListView disable="true" layoutY="179.0" orientation="HORIZONTAL" prefHeight="489.0" prefWidth="287.0" />
+            <ListView fx:id="connectList" layoutY="179.0" prefHeight="492.0" prefWidth="287.0" />
          </children>
       </Pane>
       <Pane layoutX="287.0" layoutY="-2.0" prefHeight="55.0" prefWidth="516.0" style="-fx-background-color: rgb(2,13,18);">
          <children>
-            <JFXToggleButton fx:id="online" disable="true" layoutY="1.0" prefHeight="34.0" prefWidth="170.0" text="Hors ligne" textFill="#2aabf5">
+            <Label fx:id="state" layoutX="14.0" layoutY="15.0" prefHeight="26.0" prefWidth="146.0" text="Déconnecté" textFill="WHITE">
                <font>
-                  <Font size="18.0" />
+                  <Font size="20.0" />
                </font>
-            </JFXToggleButton>
-            <ImageView fitHeight="95.0" fitWidth="40.0" layoutX="456.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@call.png" />
-               </image>
-            </ImageView>
-            <JFXButton fx:id="call" layoutX="459.0" layoutY="10.0" prefHeight="42.0" prefWidth="34.0" textFill="TRANSPARENT" />
+            </Label>
+            <JFXButton layoutX="463.0" layoutY="12.0" prefHeight="42.0" prefWidth="34.0" textFill="TRANSPARENT" />
          </children>
       </Pane>
       <Pane layoutX="287.0" layoutY="529.0" prefHeight="173.0" prefWidth="516.0" style="-fx-background-color: rgb(2,13,18);">
          <children>
-            <JFXTextField fx:id="writemessage" layoutX="12.0" layoutY="14.0" prefHeight="55.0" prefWidth="493.0" promptText="Saisir votre message" style="-fx-background-color: #ffffff;" />
-            <JFXButton fx:id="sendmessageBtn" layoutX="14.0" layoutY="87.0" onAction="#sendMessage" prefHeight="39.0" prefWidth="86.0" ripplerFill="BLACK" style="-fx-background-color: rgb(42,171,245);" text="Envoyer" textFill="WHITE">
+            <JFXButton fx:id="sendmessageBtn" layoutX="14.0" layoutY="67.0" onAction="#sendMessage" onKeyPressed="#sendMessage" prefHeight="39.0" prefWidth="86.0" ripplerFill="BLACK" style="-fx-background-color: rgb(42,171,245);" text="Envoyer" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
@@ -64,15 +54,26 @@
                   <Font name="Arial Bold" size="36.0" />
                </font>
             </Label>
-            <ImageView fitHeight="39.0" fitWidth="63.0" layoutX="118.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="63.0" layoutX="118.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@joint.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="jointfile" layoutX="113.0" layoutY="86.0" prefHeight="42.0" prefWidth="47.0" textFill="TRANSPARENT" />
+            <JFXButton fx:id="jointfile" layoutX="113.0" layoutY="66.0" prefHeight="42.0" prefWidth="47.0" textFill="TRANSPARENT" />
+            <Label layoutX="295.0" layoutY="78.0" prefHeight="81.0" prefWidth="211.0" text="Spyke" textFill="#f5f2f2">
+               <font>
+                  <Font name="Arial Bold" size="71.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="writemessage" layoutX="13.0" layoutY="9.0" prefHeight="48.0" prefWidth="443.0" promptText="Saissez votre message ici..." wrapText="true" />
+            <ImageView fitHeight="95.0" fitWidth="40.0" layoutX="463.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@call.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <TextArea fx:id="displaymessage" layoutX="295.0" layoutY="73.0" prefHeight="418.0" prefWidth="493.0" style="-fx-border-insets: 0;" />
+      <TextArea fx:id="displaymessage" editable="false" layoutX="295.0" layoutY="73.0" prefHeight="418.0" prefWidth="493.0" style="-fx-border-insets: 0;" wrapText="true" />
       <Label fx:id="status" layoutX="295.0" layoutY="501.0" prefHeight="17.0" prefWidth="493.0" text="Charles est entrain d'écrire..." />
    </children>
 </AnchorPane>

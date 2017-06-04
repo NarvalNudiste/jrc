@@ -10,6 +10,19 @@ import java.net.UnknownHostException;
 public class ClientSide
 {
 	boolean isConnect = false;
+	private Socket echoSocket;
+	PrintWriter printerOut;
+	
+	public PrintWriter getPrinterOut() {
+		return printerOut;
+	}
+	public void setPrinterOut(PrintWriter printerOut) {
+		this.printerOut = printerOut;
+	}
+
+	BufferedReader bufferedIn;
+	BufferedReader stdIn;
+	private String username;
 	
 	public boolean isConnect()
 	{
@@ -17,26 +30,19 @@ public class ClientSide
 	}
 	public ClientSide(String username, String ip, int portNumber)
 	{
-		try (Socket echoSocket = new Socket(ip, portNumber);
-    		
-			  PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-			  BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-			  BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))) 
+		this.username = username;
+		try 
+				
 		{
-
-			// LA ON EST CONNECTES
-			
+			echoSocket = new Socket(ip, portNumber);
+			printerOut = new PrintWriter(echoSocket.getOutputStream(), true);
+			bufferedIn = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+			stdIn = new BufferedReader(new InputStreamReader(System.in));
 			
 			if(echoSocket.isConnected())
 			{
 				isConnect = true;
 			}
-		/*	while ((userInput = stdIn.readLine()) != null)
-			{
-				out.println(userInput);
-				System.out.println(username +" dit: "+ in.readLine());
-
-			} */
 		}
 		catch (UnknownHostException ex) 
 		{
@@ -46,6 +52,11 @@ public class ClientSide
 		{
 			ex.getMessage();
 		} 
+	}
+	
+	public void sendMessage(String message)
+	{
+		printerOut.println(this.username+" dit: "+message);
 	}
 }
 

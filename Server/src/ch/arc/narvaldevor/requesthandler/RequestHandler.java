@@ -1,66 +1,186 @@
 package ch.arc.narvaldevor.requesthandler;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import ch.arc.narldevor.services.Services;
+import ch.arc.narvaldevor.utils.Message;
+import ch.arc.narvaldevor.utils.User;
 
-import ch.arc.narvaldevor.server.ServerSide;
-
-public class RequestHandler implements Runnable {
+public class RequestHandler extends Thread implements Services {
 
 	private Socket client;
-	private ServerSide server = null;
-	private int numberOfClient;
-	private int userId;
-	public RequestHandler(Socket client, ServerSide server)
+	private String pseudo;
+	private User user;
+	private static HashSet<ObjectOutputStream> writers = new HashSet<>();
+	private static final HashMap<String, User> pseudoHm = new HashMap<>();
+    private static ArrayList<User> users = new ArrayList<>();
+
+
+	public RequestHandler(Socket client)
 	{
-		this.server = server;
 		this.client = client;
 	}
 	
 	@Override
-	public void run() {
-		
-		try(BufferedReader bufferin = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			PrintWriter writer = new PrintWriter(new OutputStreamWriter(client.getOutputStream())))
+	public void run() 
+	{
+		try (InputStream is = client.getInputStream(); 
+				ObjectInputStream input = new ObjectInputStream(is);
+			OutputStream os = client.getOutputStream();
+             ObjectOutputStream output = new ObjectOutputStream(os))
 		{
-			//On ajoute le client dans la liste coté serveur et on récupère le nombre de clients
-			numberOfClient = server.addClient(writer);
-			this.setUserId(server.getLastId());
-
-			//System.out.println("Nom du thread: "+Thread.currentThread().getName());
-			String message;
-			
-			while((message = bufferin.readLine()) != null)
-			{
-				if (message.contains("/setNickname")){
-					String nick = message.replace("/setNickname", "");
-					server.setUserNickName(this.userId, nick);
-				}
-
-				System.out.println("Le client "+numberOfClient+" dit: "+message);
-				//On envoie le message à tous les clients connecté via la méthode sendAll...coté serveur
-				server.sendMessageToAllClients(message);
-				writer.flush();
-			}
-		} 
-		catch (IOException e) 
-		{
-			e.getMessage();
+			Message message = (Message) input.readObject();
+			verified(message);
+            writers.add(output);
+            notification(message);
+            //On balance le message de bienvenue à la connexion du client
+            welcome();
+            
+            while(this.client.isConnected())
+            {
+            	//System.out.println("Handler connect");
+            	Message messageInput = (Message) input.readObject();
+            	if(messageInput != null)
+            	{
+            		if(messageInput.getStyle().equals("connect"))
+            		{
+            			this.welcome();
+            		}
+            		else if(messageInput.getStyle().equals("message"))
+            		{
+            			this.sendMessage(messageInput);
+            		}
+            		else if(messageInput.getStyle().equals("signal"))
+            		{
+            			this.notification(messageInput);
+            		}
+            	}           		
+            }
 		}
-		catch (Exception ex) 
-		{
-			ex.getMessage();
+		catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-
+		finally
+		{
+			this.closeConnection();
+		}
+	}
+	
+	@Override
+	public Message notification(Message message) 
+	{
+		Message message_ = new Message();
+		message_.setMessage("a rejoint le chat\n");
+		message_.setStyle("signal");
+		message_.setPseudo(message.getPseudo());
+		//Envoie du message
+		sendMessage(message);
+		return message;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	/**
+	 * 
+	 * @param message
+	 * On va parcourir la liste de listener, en envoyer le style de message
+	 */
+	@Override
+	public void sendMessage(Message message) 
+	{
+		for(ObjectOutputStream oos: writers)
+		{
+			message.setUserlist(pseudoHm);
+			message.setUsers(users);
+			System.out.println(oos.toString() + " " + message.getPseudo() + " " + message.getUsers().toString());
+			try
+			{
+				oos.writeObject(message);
+				oos.reset();
+			}
+			catch(Exception ex)
+			{
+				//ex.getMessage();
+				this.closeConnection();
+			}
+		}
+		
+	}
+	/**
+	 * On va tester si le user spécifié avec ce pseudo est déjà connecté au serveur
+	 * @param message
+	 */
+	private synchronized void verified(Message message)
+	{
+		if(!pseudoHm.containsKey(message.getPseudo()))
+		{
+			pseudo = message.getPseudo();
+			user = new User(this.pseudo);
+			//Ajout du user à la liste
+			users.add(user);
+			//Ajout à la map
+			pseudoHm.put(pseudo, user);
+		}
+		else
+		{
+			System.out.println("USer déjà connté au serveur");
+		}
+	}
+
+	@Override
+	public boolean removeClient(PrintWriter printWriter) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Informe qu'un utilisateur rejoint le chat (s'est connecté au seveur)
+	 */
+	@Override
+	public Message welcome() {
+		Message message = new Message();
+		message.setMessage("Bienvenue dans le chat ");
+		message.setStyle("connection");
+		message.setPseudo("server");
+		//Envoie du message
+		sendMessage(message);
+		return message;
+	}
+
+	@Override
+	public Message delete() {
+        Message message = new Message();
+        message.setMessage("A quitté le chat");
+        message.setStyle("deconnection");
+        message.setPseudo("server");
+        message.setUserlist(pseudoHm);
+        sendMessage(message);
+        return message;
+	}
+	
+	/**
+	 * Supprimer l'objet writer et fermer la connexion lorsque l'utilisateur est déconnecté
+	 */
+	private synchronized void closeConnection()
+	{
+		if (pseudo != null) {
+			pseudoHm.remove(pseudo);
+            System.out.println("L'utilisateur: "+pseudo+" a étét supprimé");
+        }
+        if (user != null){
+            users.remove(user);
+            System.out.println("Objet supprimé");
+        }
+        try {
+            this.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }

@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="Server/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/charlesombangndo/Downloads/jfoenix.jar"/>
+	<classpathentry kind="lib" path="/Users/charlesombangndo/Downloads/controlsfx-8.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/charlesombangndo/Downloads/controlsfx-8/controlsfx-8.20.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

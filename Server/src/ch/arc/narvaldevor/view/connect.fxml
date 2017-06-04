@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
@@ -21,7 +22,7 @@
                   <Font size="22.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="username" focusColor="#09b6bc" labelFloat="true" layoutX="48.0" layoutY="130.0" prefHeight="35.0" prefWidth="359.0" promptText="Pseudo">
+            <JFXTextField fx:id="pseudo" focusColor="#09b6bc" labelFloat="true" layoutX="48.0" layoutY="130.0" prefHeight="35.0" prefWidth="359.0" promptText="Pseudo">
                <font>
                   <Font size="22.0" />
                </font>
@@ -31,7 +32,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="port" focusColor="#09b6bc" labelFloat="true" layoutX="241.0" layoutY="53.0" prefHeight="36.0" prefWidth="164.0" promptText="N° port">
+            <JFXTextField fx:id="port" focusColor="#09b6bc" labelFloat="true" layoutX="241.0" layoutY="53.0" prefHeight="36.0" prefWidth="164.0" promptText="N° port" text="1234">
                <font>
                   <Font size="22.0" />
                </font>
