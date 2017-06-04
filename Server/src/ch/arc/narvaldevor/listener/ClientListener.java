@@ -70,13 +70,9 @@ public class ClientListener implements Runnable
             		}
             		else if(message.getStyle().equals("deconnection"))
             		{
+            			spykeController.serverMessage(message);
             			spykeController.updateList(message);
             		}
-            		else if(message.getStyle().equals("server"))
-            		{
-            			spykeController.serverMessage(message);
-            		}
-            			
             	}
 			}
 
@@ -117,7 +113,7 @@ public class ClientListener implements Runnable
 		Message message = new Message();
 		message.setPseudo(pseudo);
 		message.setStyle("connect");
-		message.setMessage("Bienvenue..\n");
+		message.setMessage("Bienvenu dans le chat "+message.getPseudo()+" ..\n");
 		oos.writeObject(message);
 	}
 }

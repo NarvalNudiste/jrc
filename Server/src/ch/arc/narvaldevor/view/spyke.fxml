@@ -73,7 +73,6 @@
             </ImageView>
          </children>
       </Pane>
-      <TextArea fx:id="displaymessage" editable="false" layoutX="295.0" layoutY="73.0" prefHeight="418.0" prefWidth="493.0" style="-fx-border-insets: 0;" wrapText="true" />
-      <Label fx:id="status" layoutX="295.0" layoutY="501.0" prefHeight="17.0" prefWidth="493.0" text="Charles est entrain d'écrire..." />
+      <TextArea fx:id="displaymessage" editable="false" layoutX="295.0" layoutY="73.0" prefHeight="437.0" prefWidth="493.0" style="-fx-border-insets: 0;" wrapText="true" />
    </children>
 </AnchorPane>

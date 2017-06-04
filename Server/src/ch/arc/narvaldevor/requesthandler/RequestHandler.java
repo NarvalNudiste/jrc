@@ -143,7 +143,7 @@ public class RequestHandler extends Thread implements Services {
     @Override
     public Message delete() {
         Message message = new Message();
-        message.setMessage("A quitté le chat");
+        message.setMessage("Un utilisateur a quitté le chat\n");
         message.setStyle("deconnection");
         message.setPseudo("server");
         message.setUserlist(pseudoHm);
