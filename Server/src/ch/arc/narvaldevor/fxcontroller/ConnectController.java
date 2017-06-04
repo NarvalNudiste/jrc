@@ -53,7 +53,11 @@ public class ConnectController implements Initializable
 		this.port.setOnMouseClicked(e-> this.errorLabel.setVisible(false));
 		this.ipadress.setOnMouseClicked(e-> this.errorLabel.setVisible(false));
 	}
-		
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	void connectToChat(ActionEvent event) throws IOException
 	{
@@ -102,8 +106,8 @@ public class ConnectController implements Initializable
         return connectControlerInstance;
 	}
 
-	/*public Label getErroLabel() {
+	public Label getErrorLabel() {
 		return this.errorLabel;
-	}*/
+	}
 
 }
