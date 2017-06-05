@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
-import ch.arc.narvaldevor.client.ClientSide;
 import ch.arc.narvaldevor.listener.ClientListener;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
